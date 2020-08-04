@@ -1,0 +1,46 @@
+* {
+  font-family: 'Caveat Brush', cursive;
+}
+
+#header h1 {
+  text-decoration: underline;
+  color: white;
+}
+
+#guidance {
+  background: #863F3A;
+}
+
+.title {
+  width: 200px;
+  font-size: 40px;
+}
+
+/* .detailMovie {
+  padding: 100px auto;
+} */
+
+.title:hover {
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+#films {
+  background: #81A171;
+}
+
+#content {
+  font-size: 20px;
+}
+
+.td-width {
+  width: 35rem;
+}
+
+tbody {
+  font-size: 17px;
+}
+
+.thead {
+  background: #81A171;
+}
