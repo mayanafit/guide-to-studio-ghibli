@@ -11,9 +11,11 @@ class Movie extends Component {
     }
 
     searchResult(val) {
-        this.setState({
-            searchValue: val
-        })
+        this.props.fromSearch(val) 
+    }
+
+    detailMovie(val) {
+        this.props.detailValue(val)
     }
 
     render() {
@@ -32,7 +34,8 @@ class Movie extends Component {
                         </thead>
                         <tbody className="text-center">
                             {this.props.movies.map((movie, idx) => {
-                                return <TableData key={movie.id} movieData={movie} idx={idx}/> 
+                                return <TableData detailValue={(val) => this.detailMovie(val)}
+                                key={movie.id} movieData={movie} idx={idx}/> 
                             })}
                         </tbody>
                     </table>

@@ -11,6 +11,7 @@ class Home extends Component {
             guidance: false,
             detailMovie: false,
             movies: [],
+            movie: {}
         }
     }
 
@@ -23,11 +24,37 @@ class Home extends Component {
     }
 
     setMovieTable() {
-        return this.setState({tableMovie: !this.state.tableMovie})
+        this.componentDidMount()
+        return this.setState({
+            tableMovie: !this.state.tableMovie,
+            detailMovie: false,
+        })
     }
 
     setGuidance() {
         return this.setState({guidance: !this.state.guidance})
+    }
+    
+    searchResult(search) {
+        if (!search) {
+            return this.componentDidMount()
+        } else {
+            let regex = RegExp(`${search.toLowerCase()}*`)
+            let filteredMovies = this.state.movies.filter(movie => regex.test(movie.title.toLowerCase()))
+            return this.setState({movies: filteredMovies})
+        }
+    }
+
+    detailMovie(val) {
+        fetch(`https://ghibliapi.herokuapp.com/films/${val}`)
+        .then((resp) => resp.json())
+        .then((data) => {
+            this.setState({movie: data})
+        })
+        return this.setState({
+            detailMovie: !this.state.detailMovie,
+            tableMovie: !this.state.tableMovie
+        })
     }
 
     render() {
@@ -50,10 +77,11 @@ class Home extends Component {
                     </div>
                 </section>
                 {
-                    this.state.tableMovie && <Movies movies={this.state.movies}/>
+                    this.state.tableMovie && <Movies detailValue={(val) => this.detailMovie(val)}
+                    fromSearch={(search) => this.searchResult(search)} movies={this.state.movies}/>
                 }
                 {
-                    this.state.detailMovie && <DetailMovie />
+                    this.state.detailMovie && <DetailMovie movie={this.state.movie} />
                 }
             </>
         )

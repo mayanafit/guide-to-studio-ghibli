@@ -14,18 +14,19 @@ class FormSearch extends Component {
         })
     }
 
-    searchTitle() {
+    searchTitle(e) {
+        e.preventDefault()
         this.props.onSubmit(this.state.searchValue)
     }
 
     render() {
         return(
-            <div className="d-flex justify-content-center">
+            <form onSubmit={(e) => this.searchTitle(e)} className="d-flex justify-content-center">
                 <input onChange={(val) => this.handleChange(val)} 
                 type="text" value={this.state.searchValue} 
                 className="mr-2" placeholder="search title..."/>
-                <button onClick={() => this.searchTitle()} className="btn btn-sm bg-warning">Search</button>
-            </div>
+                <button className="btn btn-sm bg-warning">Search</button>
+            </form>
         )
     }
 
