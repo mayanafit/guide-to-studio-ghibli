@@ -11,6 +11,7 @@ class Home extends Component {
             guidance: false,
             detailMovie: false,
             movies: [],
+            filteredMovies: [],
             movie: {}
         }
     }
@@ -36,12 +37,14 @@ class Home extends Component {
     }
     
     searchResult(search) {
+        console.log(search, `ini search`)
         if (!search) {
-            return this.componentDidMount()
+            return this.setState({filteredMovies: []})
         } else {
             let regex = RegExp(`${search.toLowerCase()}*`)
-            let filteredMovies = this.state.movies.filter(movie => regex.test(movie.title.toLowerCase()))
-            return this.setState({movies: filteredMovies})
+            let filterMovies = this.state.movies.filter(movie => regex.test(movie.title.toLowerCase()))
+            console.log(filterMovies, `ini filter`)
+            return this.setState({filteredMovies: filterMovies})
         }
     }
 
@@ -78,7 +81,9 @@ class Home extends Component {
                 </section>
                 {
                     this.state.tableMovie && <Movies detailValue={(val) => this.detailMovie(val)}
-                    fromSearch={(search) => this.searchResult(search)} movies={this.state.movies}/>
+                    fromSearch={(search) => this.searchResult(search)} movies={
+                        this.state.filteredMovies.length > 0 ? this.state.filteredMovies : this.state.movies
+                    }/>
                 }
                 {
                     this.state.detailMovie && <DetailMovie movie={this.state.movie} />
