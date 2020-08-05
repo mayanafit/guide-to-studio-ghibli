@@ -1,36 +1,34 @@
 import React, {useState, useEffect} from 'react';
-import Movies from './Movies';
 import {Button} from 'reactstrap';
+import Guidance from './Guidance';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from 'react-router-dom';
 
 const Home = () => {
-    const [moviePage, setMoviePage] = useState(false)
-    const [homePage, setHomePage] = useState(true)
+    const [guidance, setGuidance] = useState(false)
 
-    const changeToMovies = () => {
-        setHomePage(false)
-        setMoviePage(true)
-    }
+    const handleClick = () => setGuidance(!guidance)
 
     return (
         <>
-            <section id="header" className="d-flex flex-column justify-content-center mb-5 mt-4">
-                <img width="250" height="150" className="align-self-center"
-                src="https://upload.wikimedia.org/wikipedia/id/b/b0/Ghibli.gif" 
-                alt=""/>
+           <div className="mt-5 d-flex flex-column">
+                <Button onClick={() => handleClick()} id="guidance">
+                    <h1 className="text-center">Guidance</h1>
+                </Button>
                 {
-                    homePage && <div className="mt-5 d-flex flex-column">
-                                    <Button id="guidance">
-                                        <h1 className="text-center">Guidance</h1>
-                                    </Button>
-                                    <Button id="films" onClick={() => changeToMovies()}>
-                                        <h1 className="text-center">Films</h1>
-                                    </Button>
-                                </div>
+                  guidance && <Guidance />
                 }
-                {
-                    moviePage && <Movies />
-                }
-            </section>
+                <Link id="films" to='/movies'>
+                    <h1 className="text-center">Films</h1>
+                </Link>
+                <Link id="favorites" to='/lists'>
+                    <h1 className="text-center">My List</h1>
+                </Link>
+            </div>
         </>
     )
 

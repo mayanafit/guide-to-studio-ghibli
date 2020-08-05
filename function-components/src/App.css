@@ -11,34 +11,63 @@
   background: #863F3A;
 }
 
-.title {
-  width: 200px;
-  font-size: 40px;
+#guidance, #films, #favorites {
+  text-decoration: none;
+  color: white;
+  height: 70px;
 }
 
-/* .detailMovie {
-  padding: 100px auto;
-} */
 
-.title:hover {
-  font-weight: bolder;
-  font-size: 20px;
+#guidance:hover, #films:hover, #favorites:hover {
+  text-decoration: underline;
 }
 
 #films {
   background: #81A171;
 }
 
+#favorites {
+  background: #638ECB;
+}
+
+#films, #favorites {
+  padding-top: 10px;
+}
+
+.title {
+  font-size: 17px;
+  text-decoration: none;
+  color: black;
+}
+
+.detailMovie {
+  font-size: 20px;
+}
+
+.title:hover {
+  font-weight: bolder;
+  font-size: 19px;
+  color: black;
+}
+
 #content {
   font-size: 20px;
 }
 
-.td-width {
-  width: 35rem;
+.td-width-title {
+  width: 15rem;
+}
+
+.td-width-desc {
+  width: 25rem;
 }
 
 tbody {
   font-size: 17px;
+}
+
+.margin-search {
+  margin-right: 800px;
 }
 
 .thead {
