@@ -42,6 +42,10 @@ const lists = (state = initState, action) => {
                     }
                 }
             }
+        case "SET_FILTERED_MOVIES":
+            return  {
+                ...state, filteredMovies: []
+            }
         default: 
             return state
     }

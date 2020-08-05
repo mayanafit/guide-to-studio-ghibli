@@ -15,6 +15,9 @@ const Home = () => {
             type: 'SET_BUTTON_REMOVE',
             payload: false,
         })
+        dispatch({
+            type: 'SET_FILTERED_MOVIES',
+        })
     }
     const handleButtonAdd = () => {
         dispatch({
@@ -33,7 +36,7 @@ const Home = () => {
                   guidance && <Guidance />
                 }
                 <Link onClick={() => handleButtonRemove()} id="films" to='/movies'>
-                    <h1 className="text-center">Films</h1>
+                    <h1 className="text-center">Movie</h1>
                 </Link>
                 <Link onClick={() => handleButtonAdd()} id="favorites" to='/lists'>
                     <h1 className="text-center">My Watch List</h1>
