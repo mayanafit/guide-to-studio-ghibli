@@ -1,5 +1,6 @@
 * {
   font-family: 'Caveat Brush', cursive;
+  font-size: 17px
 }
 
 #header h1 {
@@ -38,6 +39,10 @@
   font-size: 17px;
   text-decoration: none;
   color: black;
+}
+
+.titleModal {
+  font-size: 30px;
 }
 
 .detailMovie {

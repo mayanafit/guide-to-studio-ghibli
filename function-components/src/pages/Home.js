@@ -1,17 +1,27 @@
-import React, {useState, useEffect} from 'react';
-import {Button} from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import { Button } from 'reactstrap';
 import Guidance from './Guidance';
+import { useDispatch } from 'react-redux';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
-  } from 'react-router-dom';
+} from 'react-router-dom';
 
 const Home = () => {
     const [guidance, setGuidance] = useState(false)
-
+    const dispatch = useDispatch()
     const handleClick = () => setGuidance(!guidance)
+    const handleButtonRemove = () => {
+        dispatch({
+            type: 'SET_BUTTON_REMOVE',
+            payload: false,
+        })
+    }
+    const handleButtonAdd = () => {
+        dispatch({
+            type: 'SET_BUTTON_REMOVE',
+            payload: true,
+        })
+    }
 
     return (
         <>
@@ -22,11 +32,11 @@ const Home = () => {
                 {
                   guidance && <Guidance />
                 }
-                <Link id="films" to='/movies'>
+                <Link onClick={() => handleButtonRemove()} id="films" to='/movies'>
                     <h1 className="text-center">Films</h1>
                 </Link>
-                <Link id="favorites" to='/lists'>
-                    <h1 className="text-center">My List</h1>
+                <Link onClick={() => handleButtonAdd()} id="favorites" to='/lists'>
+                    <h1 className="text-center">My Watch List</h1>
                 </Link>
             </div>
         </>

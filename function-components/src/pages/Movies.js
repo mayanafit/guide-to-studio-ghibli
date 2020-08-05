@@ -1,18 +1,26 @@
-import React, {useState, useEffect, useReducer} from 'react';
+import React, { useEffect } from 'react';
 import { Button, Table } from 'reactstrap';
 import TableData from '../components/TableData';
-import useFetch from '../hooks/useFetch';
 import { FormSearch, DetailMovie } from '../components';
 import { useHistory, Route } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
+import useFetch from '../hooks/useFetch';
 
 const Movies = () => {
+    const dispatch = useDispatch()
     const history = useHistory()
-    const [movies, error, loading] = useFetch("https://ghibliapi.herokuapp.com/films");
-
+    const {movies, filteredMovies} = useSelector((state) => state)
     const handleClick = () => {
         history.push(`/`)
     }
+    const [moviesData] = useFetch("https://ghibliapi.herokuapp.com/films");
+
+    useEffect(() => {
+        dispatch({
+            type: 'SET_MOVIES',
+            payload: moviesData,
+        })
+    }, [dispatch, moviesData])
 
     return(
         <>
@@ -24,7 +32,7 @@ const Movies = () => {
                     <FormSearch />
                 </div>
             </div>
-            <Route path='/movies/:slug'>
+            <Route path='/movies/:id'>
               <DetailMovie />
             </Route>
             <Table hover className="container">
@@ -38,15 +46,15 @@ const Movies = () => {
                     </tr>
                 </thead>
                 <tbody className="text-center">
-                {loading ? (
+                { movies.length === 0 ? (
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td className="text-center">Page is loading...</td>
-                        <td></td>
+                        <td colSpan='5'>Page is loading...</td>
                     </tr>
+                ) : ( filteredMovies.length > 0 ? (
+                    filteredMovies.map((movie, idx) => <TableData key={movie.id} movieData={movie} index={idx}/>)
                 ) : (
                     movies.map((movie, idx) => <TableData key={movie.id} movieData={movie} index={idx}/>)
+                )
                 )}
                 </tbody>
             </Table>

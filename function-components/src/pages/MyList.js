@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Table } from 'reactstrap';
-import { FormSearch } from '../components';
+import { FormSearch, TableData } from '../components';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MyList = () => {
-
+    const { lists } = useSelector((state) => state);
     const history = useHistory()
     const handleClick = () => {
         history.push(`/`)
@@ -12,12 +13,10 @@ const MyList = () => {
     return(
         <>
             <div className="d-flex flex-column align-items-center">
-                <h1 className="text-dark mt-4 mb-3">My List</h1>
-                <div className="d-flex mb-3">
-                    <Button onClick={() => handleClick()}
-                    className="margin-search" size="md">Back to Home</Button>
-                    <FormSearch />
-                </div>
+                <h1 className="text-dark mt-4 mb-3">My Watch List</h1>
+                <Button className="mb-3" onClick={() => handleClick()} size="md">
+                    Back to Home
+                </Button>
             </div>
             <Table hover className="container">
                 <thead className="text-center thead">
@@ -29,6 +28,15 @@ const MyList = () => {
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
+                <tbody className="text-center">
+                    {lists.length < 1 ? (
+                        <tr>
+                            <td colSpan='5'>You haven't add anything yet to your list. 😢</td>
+                        </tr>
+                    ) : (
+                        lists.map((list, idx) => <TableData key={list.id} movieData={list} index={idx}/>)
+                    )}
+                </tbody>
             </Table>
         </>
     )

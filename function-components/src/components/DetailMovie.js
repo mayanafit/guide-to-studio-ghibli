@@ -1,15 +1,16 @@
-import React, {useState, useEffect} from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation, useHistory, useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap';
 
 const DetailMovie = () => {
     const history = useHistory()
-    const {state: {modalStat, id}} = useLocation()
+    const {id} = useParams()
+    const {state: {modalStat}} = useLocation()
     const [modal, setModal] = useState(modalStat)
     
-    const [movie, error, loading] = useFetch(`https://ghibliapi.herokuapp.com/films/${id}`);
-
+    const [movie] = useFetch(`https://ghibliapi.herokuapp.com/films/${id}`);
+    const {title, director, producer, rt_score, description} = movie
     const toggle = () => {
         setModal(!modal)
         history.push(`/movies`)
@@ -18,7 +19,7 @@ const DetailMovie = () => {
         <>
             <Modal isOpen={modal}>
                 <ModalHeader className="d-flex justify-content-center">
-                    <h3>{movie.title}</h3>
+                    <div className="titleModal">{title}</div>
                 </ModalHeader>
                 <ModalHeader className="d-flex justify-content-center">
                     <Row className="text-center">           
@@ -27,12 +28,12 @@ const DetailMovie = () => {
                         <Col><b>Rating:</b></Col>
                     </Row>
                     <Row className="text-center">           
-                        <Col>{movie.director}</Col>             
-                        <Col className="mx-4 ">{movie.producer}</Col>
-                        <Col>{movie.rt_score}/100</Col>
+                        <Col>{director}</Col>             
+                        <Col className="mx-4 ">{producer}</Col>
+                        <Col>{rt_score}/100</Col>
                     </Row>
                 </ModalHeader>
-                <ModalBody className="text-center detailMovie">{movie.description}</ModalBody>
+                <ModalBody className="text-center detailMovie">{description}</ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={() => toggle()}>Back</Button>
                 </ModalFooter>
