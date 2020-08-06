@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Table } from 'reactstrap';
-import { FormSearch, TableData } from '../components';
-import { useHistory } from 'react-router-dom';
+import { TableData, DetailMovie } from '../components';
+import { useHistory, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const MyList = () => {
-    const { lists } = useSelector((state) => state);
+    const { lists } = useSelector((state) => state.listsReducer);
     const history = useHistory()
     const handleClick = () => {
         history.push(`/`)
@@ -18,6 +18,9 @@ const MyList = () => {
                     Back to Home
                 </Button>
             </div>
+            <Route path='/lists/:id'>
+              <DetailMovie />
+            </Route>
             <Table hover className="container">
                 <thead className="text-center thead">
                     <tr>
@@ -31,7 +34,7 @@ const MyList = () => {
                 <tbody className="text-center">
                     {lists.length < 1 ? (
                         <tr>
-                            <td colSpan='5'>You haven't add anything yet to your list. 😢</td>
+                            <td colSpan='5'>You haven't add anything yet to your list.<span role="img" aria-label="image">😢</span></td>
                         </tr>
                     ) : (
                         lists.map((list, idx) => <TableData key={list.id} movieData={list} index={idx}/>)

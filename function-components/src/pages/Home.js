@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'reactstrap';
 import Guidance from './Guidance';
+import { setFilteredMovies } from '../store/actions/moviesAction';
+import { setButtonRemove } from '../store/actions/homeAction';
 import { useDispatch } from 'react-redux';
 import {
     Link
@@ -11,19 +13,11 @@ const Home = () => {
     const dispatch = useDispatch()
     const handleClick = () => setGuidance(!guidance)
     const handleButtonRemove = () => {
-        dispatch({
-            type: 'SET_BUTTON_REMOVE',
-            payload: false,
-        })
-        dispatch({
-            type: 'SET_FILTERED_MOVIES',
-        })
+        dispatch(setButtonRemove(false))
+        dispatch(setFilteredMovies())
     }
     const handleButtonAdd = () => {
-        dispatch({
-            type: 'SET_BUTTON_REMOVE',
-            payload: true,
-        })
+        dispatch(setButtonRemove(true))
     }
 
     return (

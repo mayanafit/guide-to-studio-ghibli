@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Button, Form, Input } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
 
 const FormSearch = () => {
-    const dispatch = useDispatch()
+    const history = useHistory()
     const [ search, setSearch ] = useState('')
 
     const handleChange = (val) => {
@@ -12,10 +12,7 @@ const FormSearch = () => {
 
     const searchValue = (event) => {
         event.preventDefault()
-        return dispatch({
-            type: 'SET_SEARCH_MOVIES',
-            payload: search,
-        })
+        history.push(`/movies?search=${search}`)
     }
     return(
         <>

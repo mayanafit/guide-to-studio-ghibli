@@ -2,25 +2,42 @@ import React, { useEffect } from 'react';
 import { Button, Table } from 'reactstrap';
 import TableData from '../components/TableData';
 import { FormSearch, DetailMovie } from '../components';
-import { useHistory, Route } from 'react-router-dom';
+import { setMovies, setFilteredMovies, setSearchMovies } from '../store/actions/moviesAction';
+import { useHistory, Route, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import useFetch from '../hooks/useFetch';
+import swal from '@sweetalert/with-react';
 
 const Movies = () => {
     const dispatch = useDispatch()
+    const location = useLocation()
+    const searchTemp = location.search.split('=')
+    const search = searchTemp[searchTemp.length-1]
     const history = useHistory()
-    const {movies, filteredMovies} = useSelector((state) => state)
+    const { movies, filteredMovies } = useSelector((state) => state.moviesReducer)
     const handleClick = () => {
         history.push(`/`)
     }
-    const [moviesData] = useFetch("https://ghibliapi.herokuapp.com/films");
 
     useEffect(() => {
-        dispatch({
-            type: 'SET_MOVIES',
-            payload: moviesData,
-        })
-    }, [dispatch, moviesData])
+        dispatch(setMovies())
+    }, [dispatch])
+
+    useEffect(() => {
+
+        if (!search) {
+            dispatch(setFilteredMovies())
+            history.push(`/movies`)
+        } else {
+            const regex = RegExp(`${search.toLowerCase()}*`)
+            const filterMovies = movies.filter(movie => regex.test(movie.title.toLowerCase()))
+            if (filterMovies.length < 1) {
+                swal("Sorry!", `We can't find any movie with keywords '${search}'.`, "error")
+            } else {
+                dispatch(setSearchMovies(filterMovies))
+            }
+        }
+
+    },[dispatch, search, history, movies])
 
     return(
         <>

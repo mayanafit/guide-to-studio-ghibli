@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
-import { useLocation, useHistory, useParams } from 'react-router-dom';
-import useFetch from '../hooks/useFetch';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setMovie } from '../store/actions/moviesAction';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap';
 
 const DetailMovie = () => {
-    const history = useHistory()
     const {id} = useParams()
+    const dispatch = useDispatch()
+    const { movie } = useSelector((state) => state.moviesReducer)
     const {state: {modalStat}} = useLocation()
     const [modal, setModal] = useState(modalStat)
-    
-    const [movie] = useFetch(`https://ghibliapi.herokuapp.com/films/${id}`);
     const {title, director, producer, rt_score, description} = movie
+
+    useEffect(() => {
+        dispatch(setMovie(id))
+    }, [dispatch, id])
+
     const toggle = () => {
         setModal(!modal)
-        history.push(`/movies`)
+        window.history.back();
     }
     return(
         <>

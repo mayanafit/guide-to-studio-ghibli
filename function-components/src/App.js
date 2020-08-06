@@ -26,7 +26,7 @@ function App() {
               <Route path='/movies'>
                 <Movies />
               </Route>
-              <Route exact path='/lists'>
+              <Route path='/lists'>
                 <MyList />
               </Route>
             </Switch>
