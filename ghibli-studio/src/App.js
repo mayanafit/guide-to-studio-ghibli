@@ -38,7 +38,7 @@ function App() {
             </Switch>
         </Router>
       </div>
-      <footer className="mt-5 pt-5 mb-4 bg-light fix-bottom">
+      <footer className="mt-5 pt-5 mb-4 bg-white fix-bottom">
         <div className="container">
           <p className="m-0 text-center text-dark">
             Powered by <a href="https://ghibliapi.herokuapp.com" target="_">Studio Ghibli API</a> 2020

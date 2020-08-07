@@ -5,7 +5,7 @@ import { setFilteredMovies } from '../store/actions/moviesAction';
 import { setButtonRemove } from '../store/actions/homeAction';
 import { useDispatch } from 'react-redux';
 import {
-    Link
+    Link,
 } from 'react-router-dom';
 
 const Home = () => {
@@ -22,14 +22,14 @@ const Home = () => {
 
     return (
         <>
-           <div className="mt-5 d-flex flex-column">
-                <Button onClick={() => handleClick()} id="guidance">
+            <div className="mt-5 d-flex flex-column">
+                <Button data-testid="button-guidance" onClick={() => handleClick()} id="guidance">
                     <h1 className="text-center">Guidance</h1>
                 </Button>
                 {
-                  guidance && <Guidance />
+                guidance && <Guidance />
                 }
-                <Link onClick={() => handleButtonRemove()} id="films" to='/movies'>
+                <Link  data-testid="button-movies" onClick={() => handleButtonRemove()} id="films" to='/movies'>
                     <h1 className="text-center">Movies</h1>
                 </Link>
                 <Link onClick={() => handleButtonAdd()} id="favorites" to='/lists'>

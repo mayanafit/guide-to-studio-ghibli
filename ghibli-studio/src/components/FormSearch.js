@@ -19,7 +19,7 @@ const FormSearch = () => {
         <>
             <Form onSubmit={(event) => searchValue(event)} inline className="d-flex justify-content-center">
                 <Input onChange={(val) => handleChange(val)}
-                type="text" className="mr-2" placeholder={ pathname === `/people` || `/people/movie/:id` ? "search name..." : "search title..."}/>
+                type="text" className="mr-2" placeholder={ pathname === `/people` || pathname === `/people/movie/:id` ? "search name..." : "search title..."}/>
                 <Button size="sm" color="info">Search</Button>
             </Form>
         </>
